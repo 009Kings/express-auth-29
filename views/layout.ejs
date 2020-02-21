@@ -9,7 +9,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
   <body>
+    <header>
+      <nav>
+        <a href="/auth/signup">Signup</a>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/logout">Logout</a>
+        <a href="/profile">Profile</a>
+      </nav>
+    </header>
     <div class="container">
+      <%- // JSON.stringify(currentUser) %>
       <h1>Authentication</h1>
       <%- body %>
     </div>
