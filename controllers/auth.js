@@ -39,6 +39,28 @@ router.get('/login', (req, res) => {
   res.render('auth/login');
 });
 
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    // if authentication failed, err: null and user: false
+    if (!user) {
+      req.flash('error', 'Invalid Username or password');
+      req.session.save(() => {
+        return res.redirect('/auth/login');
+      });
+    }
+    // If an exception is thrown, error will have VALUE and we'll want to call next with the error
+    if (err) { return next(err) }
+    // If authenticated, user has VALUE, if we're at this line of code, then the user is truthy and err is falsey
+    req.login(user, error => {
+      if (error) next(error)
+      req.flash('success', 'You are Valid');
+      req.session.save(() => {
+        return res.redirect('/');
+      });
+    })
+  })(req, res, next);
+});
+
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
